@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1168lbyaoem4"]
+
+[ext_resource type="PackedScene" uid="uid://dqi6f81rruowr" path="res://Scenes/NetworkManager.tscn" id="1_c5xre"]
+[ext_resource type="PackedScene" uid="uid://icdyenv6scfe" path="res://Scenes/MainMenu.tscn" id="2_rbp1y"]
+
+[node name="GameScene" type="Node3D"]
+
+[node name="NetworkManager" parent="." node_paths=PackedStringArray("mainMenu") instance=ExtResource("1_c5xre")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.419507, 0, 0.140068)
+mainMenu = NodePath("../MainCanvas")
+
+[node name="MainCanvas" parent="." instance=ExtResource("2_rbp1y")]

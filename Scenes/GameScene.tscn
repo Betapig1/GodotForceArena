@@ -1,0 +1,227 @@
+[gd_scene load_steps=9 format=3 uid="uid://c1hhfs2s5ploo"]
+
+[ext_resource type="PackedScene" uid="uid://cb81qrd83eagd" path="res://Scenes/Cube.tscn" id="1_khqi2"]
+[ext_resource type="Script" path="res://Scripts/DeathController.cs" id="2_mqup6"]
+[ext_resource type="Script" path="res://Scripts/Spectator.cs" id="3_mq7jd"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vs4af"]
+albedo_color = Color(0.215686, 0.513726, 0.156863, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2jpio"]
+material = SubResource("StandardMaterial3D_vs4af")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nexru"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qeve3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3ufjx"]
+
+[node name="Node3D" type="Node3D" groups=["Game"]]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="Floor" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(60, 0, 0, 0, 2, 0, 0, 0, 60, 0, 0, 0)
+layers = 3
+mesh = SubResource("BoxMesh_2jpio")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(60, 0, 0, 0, 2, 0, 0, 0, 60, 0, 0, 0)
+shape = SubResource("BoxShape3D_nexru")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.0810861, 0.996707, 0, -0.996707, -0.0810861, 0, 291.96, 0)
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.87197, 18.5276, 0)
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("2_mqup6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(100, 0, 0, 0, 1, 0, 0, 0, 100, 0, -44.0281, 0)
+shape = SubResource("BoxShape3D_qeve3")
+
+[node name="DeadCam" type="Camera3D" parent="." groups=["Spectator"]]
+transform = Transform3D(-4.37114e-08, -0.559193, 0.829038, 0, 0.829038, 0.559193, -1, 2.44431e-08, -3.62384e-08, 60.8207, 40.9934, 0)
+script = ExtResource("3_mq7jd")
+
+[node name="Label" type="Label" parent="DeadCam"]
+visible = false
+visibility_layer = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Press Escape to return to main menu (if you are host game will end for all players)"
+
+[node name="Respawn Walls" type="Node3D" parent="."]
+
+[node name="Area3D2" type="Area3D" parent="Respawn Walls"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -87.5815, 18.3843, 0)
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("2_mqup6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Respawn Walls/Area3D2"]
+transform = Transform3D(100, 0, 0, 0, 1, 0, 0, 0, 100, 0, -44.0281, 0)
+shape = SubResource("BoxShape3D_qeve3")
+
+[node name="Area3D3" type="Area3D" parent="Respawn Walls"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 12.421, 18.3843, 0)
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("2_mqup6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Respawn Walls/Area3D3"]
+transform = Transform3D(100, 0, 0, 0, 1, 0, 0, 0, 100, 0, -44.0281, 0)
+shape = SubResource("BoxShape3D_qeve3")
+
+[node name="Area3D4" type="Area3D" parent="Respawn Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.06726, 110.637, 0)
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("2_mqup6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Respawn Walls/Area3D4"]
+transform = Transform3D(100, 0, 0, 0, 1, 0, 0, 0, 100, 0, -44.0281, 0)
+shape = SubResource("BoxShape3D_qeve3")
+
+[node name="Area3D5" type="Area3D" parent="Respawn Walls"]
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 6.73351, 18.3843, -2.34682)
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("2_mqup6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Respawn Walls/Area3D5"]
+transform = Transform3D(100, 0, 0, 0, 1, 0, 0, 0, 100, 0, -44.0281, 0)
+shape = SubResource("BoxShape3D_qeve3")
+
+[node name="Area3D6" type="Area3D" parent="Respawn Walls"]
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 6.73351, 18.3843, 91.4853)
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("2_mqup6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Respawn Walls/Area3D6"]
+transform = Transform3D(100, 0, 0, 0, 1, 0, 0, 0, 100, 0, -44.0281, 0)
+shape = SubResource("BoxShape3D_qeve3")
+
+[node name="BlockWalls" type="Node3D" parent="."]
+
+[node name="Wall" type="StaticBody3D" parent="BlockWalls"]
+transform = Transform3D(4.37114e-08, 1, -8.74228e-08, 1, -4.37114e-08, 0, -3.82137e-15, -8.74228e-08, -1, 30.5539, 31.027, 0.006)
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BlockWalls/Wall"]
+transform = Transform3D(59.5, 0, 0, 0, 1, 0, 0, 0, 59.5, 0, 0, 0)
+shape = SubResource("BoxShape3D_3ufjx")
+
+[node name="Wall2" type="StaticBody3D" parent="BlockWalls"]
+transform = Transform3D(4.37114e-08, 1, -8.74228e-08, 1, -4.37114e-08, 0, -3.82137e-15, -8.74228e-08, -1, -30.502, 31.027, 0.006)
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BlockWalls/Wall2"]
+transform = Transform3D(59.5, 0, 0, 0, 1, 0, 0, 0, 59.5, 0, 0, 0)
+shape = SubResource("BoxShape3D_3ufjx")
+
+[node name="Wall3" type="StaticBody3D" parent="BlockWalls"]
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0.606, 31.027, 30.5389)
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BlockWalls/Wall3"]
+transform = Transform3D(59.5, 0, 0, 0, 1, 0, 0, 0, 59.5, 0, 0, 0)
+shape = SubResource("BoxShape3D_3ufjx")
+
+[node name="Wall4" type="StaticBody3D" parent="BlockWalls"]
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0.606, 31.027, -30.6371)
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BlockWalls/Wall4"]
+transform = Transform3D(59.5, 0, 0, 0, 1, 0, 0, 0, 59.5, 0, 0, 0)
+shape = SubResource("BoxShape3D_3ufjx")
+
+[node name="Wall5" type="StaticBody3D" parent="BlockWalls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 60.943, 0)
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BlockWalls/Wall5"]
+transform = Transform3D(59.5, 0, 0, 0, 1, 0, 0, 0, 59.5, 0, 0, 0)
+shape = SubResource("BoxShape3D_3ufjx")
+
+[node name="AttackCubes" type="Node3D" parent="."]
+
+[node name="Cube" parent="AttackCubes" instance=ExtResource("1_khqi2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.3573, 1.92252, -12.1394)
+max_contacts_reported = 5
+contact_monitor = true
+
+[node name="Cube2" parent="AttackCubes" instance=ExtResource("1_khqi2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.7146, 3.84504, 10.384)
+max_contacts_reported = 5
+contact_monitor = true
+
+[node name="Cube3" parent="AttackCubes" instance=ExtResource("1_khqi2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.8855, 5.76756, -1.75543)
+max_contacts_reported = 5
+contact_monitor = true
+
+[node name="Cube4" parent="AttackCubes" instance=ExtResource("1_khqi2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.1268, 3.57656, 18.9977)
+max_contacts_reported = 5
+contact_monitor = true
+
+[node name="Cube5" parent="AttackCubes" instance=ExtResource("1_khqi2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6578, 3.57656, 18.9977)
+max_contacts_reported = 5
+contact_monitor = true
+
+[node name="Cube6" parent="AttackCubes" instance=ExtResource("1_khqi2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.37761, 3.57656, -0.730387)
+max_contacts_reported = 5
+contact_monitor = true
+
+[node name="Cube7" parent="AttackCubes" instance=ExtResource("1_khqi2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.377, 3.57656, 21.0659)
+max_contacts_reported = 5
+contact_monitor = true
+
+[node name="Cube8" parent="AttackCubes" instance=ExtResource("1_khqi2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.226231, 3.57656, -10.8774)
+max_contacts_reported = 5
+contact_monitor = true
+
+[node name="Cube9" parent="AttackCubes" instance=ExtResource("1_khqi2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.60776, 3.57656, 24.0152)
+max_contacts_reported = 5
+contact_monitor = true
+
+[node name="Cube10" parent="AttackCubes" instance=ExtResource("1_khqi2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.4155, 3.57656, 8.1357)
+max_contacts_reported = 5
+contact_monitor = true
+
+[node name="Cube11" parent="AttackCubes" instance=ExtResource("1_khqi2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.6985, 3.57656, -11.4228)
+max_contacts_reported = 5
+contact_monitor = true
+
+[connection signal="body_entered" from="Area3D" to="Area3D" method="_on_body_entered"]
+[connection signal="body_entered" from="Respawn Walls/Area3D2" to="Respawn Walls/Area3D2" method="_on_body_entered"]
+[connection signal="body_entered" from="Respawn Walls/Area3D3" to="Respawn Walls/Area3D3" method="_on_body_entered"]
+[connection signal="body_entered" from="Respawn Walls/Area3D4" to="Respawn Walls/Area3D4" method="_on_body_entered"]
+[connection signal="body_entered" from="Respawn Walls/Area3D5" to="Respawn Walls/Area3D5" method="_on_body_entered"]
+[connection signal="body_entered" from="Respawn Walls/Area3D6" to="Respawn Walls/Area3D6" method="_on_body_entered"]

@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=3 uid="uid://cb81qrd83eagd"]
+
+[ext_resource type="Script" path="res://Scripts/ObjectController.cs" id="1_7hooo"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_nx737"]
+properties/0/path = NodePath(".:rotation")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath(".:linear_velocity")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath(".:gravity_scale")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath(".:axis_lock_linear_x")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+properties/5/path = NodePath(".:axis_lock_linear_y")
+properties/5/spawn = true
+properties/5/replication_mode = 2
+properties/6/path = NodePath(".:axis_lock_linear_z")
+properties/6/spawn = true
+properties/6/replication_mode = 2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gftmf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uknbr"]
+albedo_color = Color(0.972549, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_disok"]
+material = SubResource("StandardMaterial3D_uknbr")
+
+[node name="Cube" type="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.85457, 4.70098)
+collision_layer = 7
+collision_mask = 7
+mass = 0.01
+script = ExtResource("1_7hooo")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." groups=["Throwable"]]
+replication_config = SubResource("SceneReplicationConfig_nx737")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_gftmf")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_disok")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

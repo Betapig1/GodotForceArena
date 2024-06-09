@@ -1,0 +1,107 @@
+[gd_scene load_steps=7 format=3 uid="uid://btvjppa6ekkcf"]
+
+[ext_resource type="Script" path="res://Scripts/PlayerController.cs" id="1_0bq8b"]
+[ext_resource type="Texture2D" uid="uid://cbjfynib75u0w" path="res://Crosshair.png" id="2_d7xim"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6pj4q"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4sc86"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.054902, 0.423529, 1, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_kesn8"]
+material = SubResource("StandardMaterial3D_4sc86")
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_tx8mc"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("Neck/Camera3D:rotation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("Neck:rotation")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath(".:hitVector")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath(".:velocity")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("lifeUI", "ui", "win", "port") groups=["players"]]
+collision_layer = 2
+script = ExtResource("1_0bq8b")
+Speed = 7
+JumpVelocity = 20
+lifeUI = NodePath("CanvasLayer/Label")
+ui = NodePath("CanvasLayer")
+win = NodePath("CanvasLayer/Label2")
+port = NodePath("CanvasLayer/Port")
+
+[node name="Pivot" type="Node3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_6pj4q")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0)
+layers = 2
+mesh = SubResource("CapsuleMesh_kesn8")
+
+[node name="Neck" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.481697, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Neck"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.109359, -0.245897)
+
+[node name="ObjectLock" type="Node3D" parent="Neck/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.75348)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_tx8mc")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_right = 103.0
+offset_bottom = 59.0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_d7xim")
+expand_mode = 1
+
+[node name="Label2" type="Label" parent="CanvasLayer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.5
+offset_top = -11.5
+offset_right = 35.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "You win!! Press escape to quit"
+
+[node name="Port" type="Label" parent="CanvasLayer"]
+offset_top = 128.0
+offset_right = 40.0
+offset_bottom = 151.0
